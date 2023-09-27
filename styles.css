@@ -1,0 +1,121 @@
+* {
+    margin: 1;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FFA500;
+    /* Original shade of orange */
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #201f1f;
+    /* Original shade of black */
+    color: #FFA500;
+    padding-top: 0px;
+    min-height: auto;
+    border-bottom: #FFA500 3px solid;
+}
+
+#bar-logo img {
+    max-height: 160px;
+    margin: 0;
+    vertical-align: bottom;
+    /* Add this line */
+}
+
+header a {
+    color: #FFA500;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+header ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow: hidden;
+}
+
+header li {
+    float: left;
+    display: block;
+    padding: 0 20px;
+    font-size: 16px;
+}
+
+header #nav {
+    float: right;
+    margin-top: 10px;
+}
+
+header #nav li {
+    display: inline;
+    margin-left: 40px;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+#about,
+#menu,
+#location,
+#contact {
+    margin: 30px 0;
+    padding: 20px;
+    background: transparent;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+#location {
+    text-align: center;
+}
+
+#location-info {
+    display: inline-block;
+}
+
+#map {
+    width: 600px;
+    height: 600px;
+    margin: 20px auto;
+    /* Centers the map and adds spacing above and below */
+}
+
+#impressum {
+    padding: 20px;
+    margin: 30px auto;
+    max-width: 800px; /* You can adjust this value according to your design preference */
+    background-color: #201f1f; /* Background color */
+    color: #FFA500; /* Text color */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Centering the text content */
+}
+
+#impressum h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#impressum p {
+    margin-bottom: 15px;
+    line-height: 1.6; /* Adjusted line height for better readability */
+}
+
+#impressum a {
+    color: #FFA500; /* Hyperlink color to match text color */
+    text-decoration: underline; /* Underlined hyperlinks */
+}
