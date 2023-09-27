@@ -8,7 +8,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #FFA500;
+    background-color: #f9951b;
     /* Original shade of orange */
 }
 
@@ -16,12 +16,12 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #201f1f;
+    background-color: #231f1e;
     /* Original shade of black */
-    color: #FFA500;
+    color: #f9951b;
     padding-top: 0px;
     min-height: auto;
-    border-bottom: #FFA500 3px solid;
+    border-bottom: #f9951b 3px solid;
 }
 
 #bar-logo img {
@@ -32,7 +32,7 @@ header {
 }
 
 header a {
-    color: #FFA500;
+    color: #f9951b;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 16px;
@@ -99,8 +99,8 @@ h1 {
     padding: 20px;
     margin: 30px auto;
     max-width: 800px; /* You can adjust this value according to your design preference */
-    background-color: #201f1f; /* Background color */
-    color: #FFA500; /* Text color */
+    background-color: #231f1e; /* Background color */
+    color: #f9951b; /* Text color */
     border-radius: 10px; /* Rounded corners */
     text-align: center; /* Centering the text content */
 }
@@ -116,6 +116,6 @@ h1 {
 }
 
 #impressum a {
-    color: #FFA500; /* Hyperlink color to match text color */
+    color: #f9951b; /* Hyperlink color to match text color */
     text-decoration: underline; /* Underlined hyperlinks */
 }
