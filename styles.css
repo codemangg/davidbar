@@ -7,6 +7,7 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f9951b;
+    color: #231f1e;
 }
 
 header {
@@ -15,8 +16,7 @@ header {
     align-items: center;
     background-color: #231f1e;
     color: #f9951b;
-    padding-top: 0px;
-    min-height: auto;
+    padding: 10px;
     border-bottom: #f9951b 3px solid;
 }
 
@@ -35,58 +35,46 @@ header a {
 }
 
 header ul {
-    padding: 0;
-    margin: 0;
     list-style: none;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
 header li {
-    float: left;
-    display: block;
     padding: 0 20px;
-    font-size: 16px;
-}
-
-header #nav {
-    float: right;
-    margin-top: 10px;
-}
-
-header #nav li {
-    display: inline;
-    margin-left: 40px;
 }
 
 header nav a:hover {
     text-decoration: underline;
 }
 
-#about,
-#menu,
-#location,
-#contact {
-    margin: 30px auto;
+.flex-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 30px 0;
     padding: 20px;
-    background: transparent;
-    text-align: center;
+}
+
+.section-content {
     max-width: 600px;
+    text-align: center;
+}
+
+.section-image img {
+    max-width: 150px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     font-size: 24px;
-    text-align: center;
-}
-
-#location-info {
-    text-align: center;
-    margin: 0 auto;
 }
 
 #map {
     width: 600px;
     height: 600px;
-    margin: 20px auto;
+    margin: 20px 0;
 }
 
 #impressum {
@@ -114,36 +102,21 @@ h1 {
     text-decoration: underline;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-}
-
 @media (max-width: 768px) {
-    header {
+    .flex-section {
         flex-direction: column;
     }
-   
-    header #nav {
-        float: none;
-        margin-top: 0;
-    }
-   
-    header li {
-        padding: 10px 0;
-        text-align: center;
-    }
-   
-    #about,
-    #menu,
-    #location,
-    #contact {
-        padding: 20px;
-        max-width: 100%;
-    }
-   
+
     #map {
         width: 100%;
-        height: 400px;
+        height: 300px;
+    }
+    
+    header ul {
+        flex-direction: column;
+    }
+
+    header li {
+        padding: 10px 0;
     }
 }
