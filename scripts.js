@@ -17,10 +17,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       e.preventDefault();
 
       const targetId = this.getAttribute('href').substring(1);
-      if (targetId !== 'impressum') {
-          document.querySelector('#' + targetId).scrollIntoView({
-              behavior: 'smooth'
-          });
+      const targetElement = document.querySelector('#' + targetId);
+      
+      if (targetId === 'images') {
+          openSlideshow();
+      } else if (targetId !== 'impressum.html') {  
+          if (targetElement) {
+              targetElement.scrollIntoView({
+                  behavior: 'smooth'
+              });
+          } else {
+              console.error("No element found with the id:", targetId);
+          }
       } else {
           window.location.href = 'impressum.html';
       }
@@ -34,7 +42,6 @@ const images = [
   'bildgalerie/image3.jpg',
   'bildgalerie/image4.jpg',
   'bildgalerie/image5.jpg'
-  // Add more image paths if needed
 ];
 
 function openSlideshow() {
@@ -68,13 +75,13 @@ document.querySelector('a[href="#images"]').addEventListener('click', function(e
 document.addEventListener('keydown', function(event) {
   if (document.getElementById('slideshow').style.display === "block") {
       switch (event.key) {
-          case "Escape": // If Escape key is pressed
+          case "Escape":
               closeSlideshow();
               break;
-          case "ArrowRight": // If Right Arrow key is pressed
+          case "ArrowRight": 
               changeSlide(1);
               break;
-          case "ArrowLeft": // If Left Arrow key is pressed
+          case "ArrowLeft":
               changeSlide(-1);
               break;
       }
