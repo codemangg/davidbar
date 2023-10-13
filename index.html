@@ -24,59 +24,47 @@
         </div>
         <nav id="nav">
             <ul>
-                <li><a href="#about">Über uns</a></li>
                 <li><a href="#location">Standort</a></li>
                 <li><a href="#images">Bildgalerie</a></li>
                 <li><a href="#impressum.html">Impressum</a></li>
             </ul>
         </nav>
     </header>
-    <section id="about" class="flex-section">
-        <div class="section-image">
-            <img src="Gerardo.jpg" alt="Left Image for About Section">
+    <section id="intro-section" class="flex-section">
+        <div class="intro-text">
+            <p>Pub/Bar Gerardo</p>
+            <p>Goldeggerstraße 6/2</p>
+            <p>5620 Schwarzach im Pongau</p>
         </div>
-        <div class="section-content">
-            <h1>Über uns</h1>
-            <p>blablabla</p>
-        </div>
-        <div class="section-image">
-            <img src="Gerardo.jpg" alt="Right Image for About Section">
-        </div>
-    </section>
-    <section id="menu" class="flex-section">
-        <div class="section-image">
-            <img src="Gerardo.jpg" alt="Left Image for Menu Section">
-        </div>
-        <div class="section-content">
-            <h1>Menu</h1>
-            <p>Bier</p>
-            <p>Opfesoft</p>
-            <p>jooo</p>
-        </div>
-        <div class="section-image">
-            <img src="Gerardo.jpg" alt="Right Image for Menu Section">
-        </div>
-    </section>
-    <section id="location" class="flex-section">
-        <div class="section-content">
-            <h1>Wo Sie uns finden</h1>
-            <div id="map"></div>
-            <div id="location-info">
-                <p>Sie finden uns in der Salzburgerstraße 76</p>
-                <p>in 5620 Schwarzach im Pongau</p>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=47.3185068,13.1383278" target="_blank">Route
-                    der Anfahrt</a>
+        <div class="intro-images">
+            <div class="image-container">
+                <img src="Gerardo.jpg" alt="First Image">
             </div>
-        </div>
+            <div class="image-container">
+                <img src="Gerardo.jpg" alt="Second Image">
+            </div>
+        </div>        
     </section>
+
+    <section id="opening-hours" class="flex-section">
+        <p>Öffnungszeiten Montag bis Samstag 14:00 - 02:00</p>
+        <p>oder nach Vereinbarung (Mittagessen, Geburtstags- oder andere Feiern)</p>
+    </section>
+
+</section>
+<section id="location" class="flex-section">
+    <div class="section-content">
+        <div id="map"></div>
+        <div id="location-info">
+            <p>Sie finden uns in der Salzburgerstraße 76</p>
+            <p>in 5620 Schwarzach im Pongau</p>
+            <a href="https://www.google.com/maps/dir/?api=1&destination=47.3185068,13.1383278" target="_blank">Route
+                der Anfahrt</a>
+        </div>
+    </div>
+</section>
+
     <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
     <script src="scripts.js" defer></script>
 </body>
-<div id="slideshow" class="slideshow">
-    <span class="close" onclick="closeSlideshow()">&times;</span>
-    <div class="slideshow-content">
-        <img class="slideshow-image" src="" alt="Slideshow Image" id="slideshowImg">
-    </div>
-</div>
-
 </html>
