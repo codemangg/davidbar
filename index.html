@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <title>GERARDO</title>
 </head>
+
 
 <body>
     <div id="slideshow" class="slideshow">
@@ -17,7 +19,7 @@
             <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
             <a class="next" onclick="changeSlide(1)">&#10095;</a>
         </div>
-    </div>    
+    </div>
     <header>
         <div id="bar-logo">
             <img src="Gerardo.jpg" alt="GERARDO Logo" />
@@ -30,41 +32,64 @@
             </ul>
         </nav>
     </header>
-    <section id="intro-section" class="flex-section">
-        <div class="intro-text">
-            <p>Pub/Bar Gerardo</p>
-            <p>Goldeggerstraße 6/2</p>
-            <p>5620 Schwarzach im Pongau</p>
-        </div>
-        <div class="intro-images">
-            <div class="image-container">
-                <img src="Gerardo.jpg" alt="First Image">
+    <div class="container">
+        <section id="intro-section" class="flex-section">
+            <div class="intro-images">
+                <div class="image-container">
+                    <img src="Gerardo.jpg" alt="First Image">
+                </div>
+                <div class="image-text-container">
+                    Das "Gerardo" in Schwarzach im Pongau ist der ultimative Treffpunkt für Sportbegeisterte und
+                    Genießer. Mit seinen regelmäßigen Sport-Liveübertragungen zieht es Fans aus der gesamten Region an,
+                    die in geselliger Runde mitfiebern und ihre Mannschaften anfeuern. Doch nicht nur Sport steht hier
+                    im Mittelpunkt. Bei geeignetem Wetter wird der Außenbereich zur Grillzone, wo Gäste sich an
+                    köstlichen Grillgerichten erfreuen können. Das "Gerardo" ist auch ein beliebter Ort für
+                    Firmenfeiern, da es mit seiner vielseitigen Ausstattung und Atmosphäre den perfekten Rahmen für
+                    besondere Anlässe bietet. Ob Live-Sport, Grillabend oder Firmenfest - das "Gerardo" in Schwarzach im
+                    Pongau ist immer eine gute Wahl.
+                </div>
             </div>
-            <div class="image-container">
-                <img src="Gerardo.jpg" alt="Second Image">
+        </section>
+        <section id="intro-section" class="flex-section">
+            <div class="intro-images">
+                <div class="image-text-container-infos">
+                    <strong>Öffnungszeiten:</strong>
+
+                    <ul>
+                        <li>Montag bis Samstag: 14:00 - 02:00 Uhr</li>
+                        <li>Sonntag: Ruhetag<br></li>
+                    </ul>
+
+                    <strong>Besondere Vereinbarungen:</strong>
+                    Möglichkeiten für Mittagessen und Geburtstagsfeiern außerhalb der regulären Öffnungszeiten sind nach
+                    Vereinbarung verfügbar.<br>
+
+                    <strong>Reservierungen:</strong>
+                    Bitte melden Sie Ihre Reservierung telefonisch bei Gerhard Hölzl: 0664/75004707
+                </div>
+                <div class="image-container">
+                    <img src="Gerardo.jpg" alt="Second Image">
+                </div>
             </div>
-        </div>        
-    </section>
-
-    <section id="opening-hours" class="flex-section">
-        <p>Öffnungszeiten Montag bis Samstag 14:00 - 02:00</p>
-        <p>oder nach Vereinbarung (Mittagessen, Geburtstags- oder andere Feiern)</p>
-    </section>
-
-</section>
-<section id="location" class="flex-section">
-    <div class="section-content">
-        <div id="map"></div>
-        <div id="location-info">
-            <p>Sie finden uns in der Salzburgerstraße 76</p>
-            <p>in 5620 Schwarzach im Pongau</p>
-            <a href="https://www.google.com/maps/dir/?api=1&destination=47.3185068,13.1383278" target="_blank">Route
-                der Anfahrt</a>
-        </div>
+        </section>
+        <section id="location" class="flex-section">
+            <div class="section-content">
+                <h2>Unser Standort</h2>
+                <h3>inmitten von Schwarzach</h3>
+                <div id="map"></div>
+                <div id="location-info">
+                    <p>Sie finden uns in der Salzburgerstraße 76</p>
+                    <p>in 5620 Schwarzach im Pongau</p>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=47.3185068,13.1383278"
+                        target="_blank">Route
+                        der Anfahrt</a>
+                </div>
+            </div>
+        </section>
     </div>
-</section>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
     <script src="scripts.js" defer></script>
 </body>
+
 </html>
