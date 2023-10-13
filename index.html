@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,16 @@
 </head>
 
 <body>
+    <!-- Slideshow -->
+    <div id="slideshow" class="slideshow">
+        <span class="close" onclick="closeSlideshow()">&times;</span>
+        <div class="slideshow-content">
+            <img class="slideshow-image" src="" alt="Slideshow Image" id="slideshowImg">
+            <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+            <a class="next" onclick="changeSlide(1)">&#10095;</a>
+        </div>
+    </div>
+
     <header>
         <div id="bar-logo">
             <img src="Gerardo.jpg" alt="GERARDO Logo" />
@@ -18,8 +28,8 @@
             <ul>
                 <li><a href="#about">Über uns</a></li>
                 <li><a href="#location">Standort</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-                <li><a href="impressum.html">Impressum</a></li>
+                <li><a href="#images">Bildgalerie</a></li>
+                <li><a href="#impressum.html">Impressum</a></li>
             </ul>
         </nav>
     </header>
@@ -51,29 +61,24 @@
     </section>
     <section id="location" class="flex-section">
         <div class="section-content">
-            <h1>Wie Sie uns finden</h1>
+            <h1>Wo Sie uns finden</h1>
             <div id="map"></div>
             <div id="location-info">
                 <p>Sie finden uns in der Salzburgerstraße 76</p>
                 <p>in 5620 Schwarzach im Pongau</p>
-                <a href="https://www.google.com/maps/dir/?api=1&destination=47.3185068,13.1383278" target="_blank">Route der Anfahrt</a>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=47.3185068,13.1383278" target="_blank">Route
+                    der Anfahrt</a>
             </div>
-        </div>
-    </section>
-    <section id="contact" class="flex-section">
-        <div class="section-image">
-            <img src="Gerardo.jpg" alt="Left Image for Contact Section">
-        </div>
-        <div class="section-content">
-            <h1>Kontaktieren Sie uns!</h1>
-            <p>Für Reservierungen kontaktieren Sie uns bitte unter der folgenden Telefonnummer: 34124132</p>
-        </div>
-        <div class="section-image">
-            <img src="Gerardo.jpg" alt="Right Image for Contact Section">
         </div>
     </section>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
     <script src="scripts.js" defer></script>
 </body>
+<div id="slideshow" class="slideshow">
+    <span class="close" onclick="closeSlideshow()">&times;</span>
+    <div class="slideshow-content">
+        <img class="slideshow-image" src="" alt="Slideshow Image" id="slideshowImg">
+    </div>
+</div>
 
 </html>
