@@ -240,10 +240,10 @@ h1 {
     margin-bottom: 5px;
 }
 
-.location,h2,h3{
+.location,h1,h2{
     text-align: center;
 }
-.location,h3{
+.location,h2{
     font-weight: 300;
 }
 
