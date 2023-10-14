@@ -44,10 +44,8 @@ A website dedicated to showcasing the 'Gerardo' venue located in Schwarzach im P
 └── bildgalerie          # Image gallery directory
 
 
-**Block 6**
-```markdown
-## Setup and Installation
+## Usage Restrictions
 
-1. Clone the repository or download the project files.
-2. Open `index.html` in your preferred browser to view the website.
-3. To view the Impressum, navigate to `pages/impressum.html` or use the provided navigation link on the main page.
+This project is created specifically for 'Gerardo' in Schwarzach im Pongau and is not intended for public or private use, redistribution, or replication without explicit permission from the owners. Any unauthorized use or distribution is strictly prohibited.
+
+If you wish to use any content or have any queries, please contact the venue management or the website's administrators.
