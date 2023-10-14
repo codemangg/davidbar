@@ -8,7 +8,7 @@ A website dedicated to showcasing the 'Gerardo' venue located in Schwarzach im P
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Directory Structure](#directory-structure)
-- [Setup and Installation](#setup-and-installation)
+- [Usage Restrictions](#usage-restrictions)
 
 ## Overview
 
@@ -31,17 +31,16 @@ A website dedicated to showcasing the 'Gerardo' venue located in Schwarzach im P
 
 ## Directory Structure
 
-```plaintext
 ├── pages
-│   └── impressum.html    # Impressum page with legal details
+│ └── impressum.html # Impressum page with legal details
 ├── stylesheets
-│   └── style.css        # Main styling file
+│ └── style.css # Main styling file
 ├── scripts
-│   └── script.js        # JavaScript functions and interactivity
-├── logos                # Logos directory
-├── images               # General images used in the website
-├── favicon              # Favicons and related images
-└── bildgalerie          # Image gallery directory
+│ └── script.js # JavaScript functions and interactivity
+├── logos # Logos directory
+├── images # General images used in the website
+├── favicon # Favicons and related images
+└── bildgalerie # Image gallery directory
 
 
 ## Usage Restrictions
@@ -49,3 +48,4 @@ A website dedicated to showcasing the 'Gerardo' venue located in Schwarzach im P
 This project is created specifically for 'Gerardo' in Schwarzach im Pongau and is not intended for public or private use, redistribution, or replication without explicit permission from the owners. Any unauthorized use or distribution is strictly prohibited.
 
 If you wish to use any content or have any queries, please contact the venue management or the website's administrators.
+
