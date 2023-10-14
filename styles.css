@@ -99,6 +99,7 @@ h1 {
 }
 
 #impressum {
+    font-family: 'Oswald', sans-serif;
     padding: 20px;
     margin: 30px auto;
     max-width: 800px;
@@ -247,9 +248,39 @@ h1 {
 }
 
 @media screen and (max-width: 768px) {
-    .image-container {
-        flex-basis: 100%;
-        margin: 0;
-        text-align: center;
+    .intro-images {
+        flex-direction: column;
+    }
+    
+    .image-container, .image-text-container, .image-text-container-infos {
+        max-width: 100%;
+        margin: 10px 0;
+    }
+
+    header nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header li {
+        padding: 5px 0;
+    }
+
+    #map {
+        width: 100%;
+        height: 300px;
+    }
+
+    .image-text-container, .image-text-container-infos {
+        padding: 10px;
+    }
+    
+    #bar-logo img {
+        max-height: 80px;
+    }
+
+    header {
+        flex-direction: column;
     }
 }

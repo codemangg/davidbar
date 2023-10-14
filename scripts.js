@@ -1,37 +1,37 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   var map = L.map('map').setView([47.3185068, 13.1383278], 17);
-  
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
-  
+
   var marker = L.marker([47.3185068, 13.1383278]).addTo(map)
     .bindPopup('GERARDO')
     .openPopup();
 
-  map.setView(marker.getLatLng()); 
+  map.setView(marker.getLatLng());
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
-      e.preventDefault();
+    e.preventDefault();
 
-      const targetId = this.getAttribute('href').substring(1);
-      const targetElement = document.querySelector('#' + targetId);
-      
-      if (targetId === 'images') {
-          openSlideshow();
-      } else if (targetId !== 'impressum.html') {  
-          if (targetElement) {
-              targetElement.scrollIntoView({
-                  behavior: 'smooth'
-              });
-          } else {
-              console.error("No element found with the id:", targetId);
-          }
+    const targetId = this.getAttribute('href').substring(1);
+    const targetElement = document.querySelector('#' + targetId);
+
+    if (targetId === 'images') {
+      openSlideshow();
+    } else if (targetId !== 'impressum.html') {
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth'
+        });
       } else {
-          window.location.href = 'impressum.html';
+        console.error("No element found with the id:", targetId);
       }
+    } else {
+      window.location.href = 'impressum.html';
+    }
   });
 });
 
@@ -60,30 +60,30 @@ function closeSlideshow() {
 function changeSlide(n) {
   currentImageIndex += n;
   if (currentImageIndex > images.length - 1) {
-      currentImageIndex = 0;
+    currentImageIndex = 0;
   } else if (currentImageIndex < 0) {
-      currentImageIndex = images.length - 1;
+    currentImageIndex = images.length - 1;
   }
   document.getElementById('slideshowImg').src = images[currentImageIndex];
 }
 
-document.querySelector('a[href="#images"]').addEventListener('click', function(e) {
+document.querySelector('a[href="#images"]').addEventListener('click', function (e) {
   e.preventDefault();
   openSlideshow();
 });
 
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
   if (document.getElementById('slideshow').style.display === "block") {
-      switch (event.key) {
-          case "Escape":
-              closeSlideshow();
-              break;
-          case "ArrowRight": 
-              changeSlide(1);
-              break;
-          case "ArrowLeft":
-              changeSlide(-1);
-              break;
-      }
+    switch (event.key) {
+      case "Escape":
+        closeSlideshow();
+        break;
+      case "ArrowRight":
+        changeSlide(1);
+        break;
+      case "ArrowLeft":
+        changeSlide(-1);
+        break;
+    }
   }
 });
