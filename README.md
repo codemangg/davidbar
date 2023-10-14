@@ -31,16 +31,16 @@ A website dedicated to showcasing the 'Gerardo' venue located in Schwarzach im P
 
 ## Directory Structure
 
-├── pages
-│ └── impressum.html # Impressum page with legal details
-├── stylesheets
-│ └── style.css # Main styling file
-├── scripts
-│ └── script.js # JavaScript functions and interactivity
-├── logos # Logos directory
-├── images # General images used in the website
-├── favicon # Favicons and related images
-└── bildgalerie # Image gallery directory
+    ├── pages
+    │   └── impressum.html    # Impressum page with legal details
+    ├── stylesheets
+    │   └── style.css        # Main styling file
+    ├── scripts
+    │   └── script.js        # JavaScript functions and interactivity
+    ├── logos                # Logos directory
+    ├── images               # General images used in the website
+    ├── favicon              # Favicons and related images
+    └── bildgalerie          # Image gallery directory
 
 
 ## Usage Restrictions
