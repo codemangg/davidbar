@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
+  initMap();
+  initSmoothScroll();
+  initSlideshow();
+  initKeyboardNavigation();
+  initSwipeNavigation();
+});
+
+function initMap() {
   var map = L.map('map').setView([47.3185068, 13.1383278], 17);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -6,36 +14,36 @@ document.addEventListener("DOMContentLoaded", function () {
   }).addTo(map);
 
   var marker = L.marker([47.3185068, 13.1383278]).addTo(map)
-  .bindPopup('<img src="./logos/Gerardo.jpg" alt="GERARDO Logo" width="200"><br><strong>Pub-Bar Gerardo</strong><br>Goldegger Straße 6<br>5620 Schwarzach')
-  .openPopup();
-
-
+    .bindPopup('<img src="./logos/Gerardo.jpg" alt="GERARDO Logo" width="200"><br><strong>Pub-Bar Gerardo</strong><br>Goldegger Straße 6<br>5620 Schwarzach')
+    .openPopup();
 
   map.setView(marker.getLatLng());
-});
+}
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
 
-    const targetId = this.getAttribute('href').substring(1);
-    const targetElement = document.querySelector('#' + targetId);
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.querySelector('#' + targetId);
 
-    if (targetId === 'images') {
-      openSlideshow();
-    } else if (targetId !== 'impressum.html') {
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: 'smooth'
-        });
+      if (targetId === 'images') {
+        openSlideshow();
+      } else if (targetId !== 'impressum.html') {
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth'
+          });
+        } else {
+          console.error("No element found with the id:", targetId);
+        }
       } else {
-        console.error("No element found with the id:", targetId);
+        window.location.href = './pages/impressum.html';
       }
-    } else {
-      window.location.href = './pages/impressum.html';
-    }
+    });
   });
-});
+}
 
 let currentImageIndex = 0;
 const images = [
@@ -45,6 +53,13 @@ const images = [
   'bildgalerie/image4.jpg',
   'bildgalerie/image5.jpg'
 ];
+
+function initSlideshow() {
+  document.querySelector('a[href="#images"]').addEventListener('click', function (e) {
+    e.preventDefault();
+    openSlideshow();
+  });
+}
 
 function openSlideshow() {
   const slideshow = document.getElementById('slideshow');
@@ -69,23 +84,51 @@ function changeSlide(n) {
   document.getElementById('slideshowImg').src = images[currentImageIndex];
 }
 
-document.querySelector('a[href="#images"]').addEventListener('click', function (e) {
-  e.preventDefault();
-  openSlideshow();
-});
-
-document.addEventListener('keydown', function (event) {
-  if (document.getElementById('slideshow').style.display === "block") {
-    switch (event.key) {
-      case "Escape":
-        closeSlideshow();
-        break;
-      case "ArrowRight":
-        changeSlide(1);
-        break;
-      case "ArrowLeft":
-        changeSlide(-1);
-        break;
+function initKeyboardNavigation() {
+  document.addEventListener('keydown', function (event) {
+    if (document.getElementById('slideshow').style.display === "block") {
+      switch (event.key) {
+        case "Escape":
+          closeSlideshow();
+          break;
+        case "ArrowRight":
+          changeSlide(1);
+          break;
+        case "ArrowLeft":
+          changeSlide(-1);
+          break;
+      }
     }
-  }
-});
+  });
+}
+
+function initSwipeNavigation() {
+  let touchStartX = null;
+
+  document.getElementById('slideshow').addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+  });
+
+  document.getElementById('slideshow').addEventListener('touchmove', function (e) {
+    e.preventDefault();
+  });
+
+  document.getElementById('slideshow').addEventListener('touchend', function (e) {
+    if (touchStartX === null) {
+      return;
+    }
+
+    let touchEndX = e.changedTouches[0].clientX;
+    let diffX = touchStartX - touchEndX;
+
+    if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
+        changeSlide(1);
+      } else {
+        changeSlide(-1);
+      }
+    }
+
+    touchStartX = null;
+  });
+}
