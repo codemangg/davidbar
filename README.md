@@ -32,7 +32,7 @@ A website dedicated to showcasing the 'Gerardo' venue located in Schwarzach im P
 ## Directory Structure
 
     ├── pages
-    │   └── impressum.html    # Impressum page with legal details
+    │   └── impressum.html   # Impressum page with legal details
     ├── stylesheets
     │   └── style.css        # Main styling file
     ├── scripts
