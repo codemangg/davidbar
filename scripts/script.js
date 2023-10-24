@@ -13,12 +13,24 @@ function initMap() {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  var marker = L.marker([47.3185068, 13.1383278]).addTo(map)
+  // Custom icon setup
+  var customIcon = L.icon({
+    iconUrl: './images/marker-icon.png',
+    shadowUrl: './images/marker-shadow.png',
+    iconSize: [25, 41],
+    shadowSize: [41, 41],
+    iconAnchor: [12, 41],
+    shadowAnchor: [12, 41],
+    popupAnchor: [-3, -76]
+  });
+
+  var marker = L.marker([47.3185068, 13.1383278], {icon: customIcon}).addTo(map)
     .bindPopup('<img src="./logos/Gerardo.jpg" alt="GERARDO Logo" width="200"><br><strong>Pub-Bar Gerardo</strong><br>Goldegger Straße 6<br>5620 Schwarzach')
     .openPopup();
 
   map.setView(marker.getLatLng());
 }
+
 
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
