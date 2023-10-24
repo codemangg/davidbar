@@ -254,20 +254,65 @@ h2 {
     font-weight: 300;
 }
 
+#hamburger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+}
+
+#mobile-nav-menu {
+    position: fixed;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100vh;
+    background-color: #f9951b;
+    border-right: 1px solid #ccc;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+    z-index: 9998;
+    transition: left 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mobile-nav-menu.open {
+    left: 0;
+}
+
+#mobile-nav-menu a {
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+    color: #231f1e;
+}
+
+
 @media screen and (max-width: 768px) {
     .intro-images {
         flex-direction: column;
     }
+
+    #nav {
+        display: none;
+        }
+        
+    #hamburger-menu {
+        display: flex;
+        }
 
     .image-container,
     .image-text-container,
     .image-text-container-infos {
         max-width: 100%;
         margin: 10px 0;
-    }
-
-    #bar-logo img {
-        max-height: 80px;
     }
 
     header nav {

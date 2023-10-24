@@ -132,3 +132,27 @@ function initSwipeNavigation() {
     touchStartX = null;
   });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburgerMenu = document.getElementById('hamburger-menu');
+  const mobileNavMenu = document.getElementById('mobile-nav-menu');
+  const menuLinks = mobileNavMenu.querySelectorAll('a');
+
+  hamburgerMenu.addEventListener('click', function() {
+      toggleMenu();
+  });
+
+  menuLinks.forEach(link => {
+      link.addEventListener('click', function() {
+          toggleMenu();
+      });
+  });
+
+  function toggleMenu() {
+      if (mobileNavMenu.classList.contains('open')) {
+          mobileNavMenu.classList.remove('open');
+      } else {
+          mobileNavMenu.classList.add('open');
+      }
+  }
+});
