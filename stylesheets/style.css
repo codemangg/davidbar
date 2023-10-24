@@ -27,9 +27,7 @@ header {
 
 .container {
     width: 100%;
-    /* Ensure it takes the full width */
     max-width: 1600px;
-    /* Maximum width specified so it doesn't stretch indefinitely on very large screens */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -287,7 +285,6 @@ h2 {
         height: 60vh;
         margin: 20px auto;
     }
-    
 
     .image-text-container,
     .image-text-container-infos {
@@ -302,5 +299,15 @@ h2 {
 
     header {
         flex-direction: column;
+    }
+
+    .close {
+        font-size: 60px;
+    }
+
+    .prev,
+    .next {
+        font-size: 60px;
+        padding-left: 10px;
     }
 }
