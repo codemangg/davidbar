@@ -26,12 +26,16 @@ header {
 }
 
 .container {
+    width: 100%;
+    /* Ensure it takes the full width */
     max-width: 1600px;
+    /* Maximum width specified so it doesn't stretch indefinitely on very large screens */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
+
 
 #bar-logo {
     align-self: flex-start;
@@ -94,8 +98,8 @@ h1 {
 }
 
 #map {
-    width: 800px;
-    height: 800px;
+    width: 600px;
+    height: 600px;
     margin: 20px 0;
 }
 
@@ -210,14 +214,14 @@ h1 {
     margin: 15px 0;
 }
 
-.image-text-container{
+.image-text-container {
     max-width: 50%;
     padding: 10px 50px;
     hyphens: auto;
     text-align: center;
 }
 
-.image-text-container-infos{
+.image-text-container-infos {
     max-width: 50%;
     padding: 10px 50px;
     hyphens: auto;
@@ -241,10 +245,14 @@ h1 {
     margin-bottom: 5px;
 }
 
-.location,h1,h2{
+.location,
+h1,
+h2 {
     text-align: center;
 }
-.location,h2{
+
+.location,
+h2 {
     font-weight: 300;
 }
 
@@ -252,10 +260,16 @@ h1 {
     .intro-images {
         flex-direction: column;
     }
-    
-    .image-container, .image-text-container, .image-text-container-infos {
+
+    .image-container,
+    .image-text-container,
+    .image-text-container-infos {
         max-width: 100%;
         margin: 10px 0;
+    }
+
+    #bar-logo img {
+        max-height: 80px;
     }
 
     header nav {
@@ -269,17 +283,22 @@ h1 {
     }
 
     #map {
-        width: 80vh;
-        height: 80vh;  /* adjust this value as needed */
-    }
-
-    .image-text-container, .image-text-container-infos {
-        padding: 10px;
+        max-width: 80vw;
+        height: 60vh;
+        margin: 20px auto;
     }
     
-    #bar-logo img {
-        max-height: 80px;
+
+    .image-text-container,
+    .image-text-container-infos {
+        padding: 10px;
     }
+
+    #bar-logo img {
+        width: 100%;
+        max-height: 160px;
+        vertical-align: bottom;
+    }    
 
     header {
         flex-direction: column;

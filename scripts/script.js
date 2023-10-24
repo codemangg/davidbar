@@ -6,8 +6,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }).addTo(map);
 
   var marker = L.marker([47.3185068, 13.1383278]).addTo(map)
-    .bindPopup('GERARDO')
-    .openPopup();
+  .bindPopup('<img src="./logos/Gerardo.jpg" alt="GERARDO Logo" width="200"><br><strong>Pub-Bar Gerardo</strong><br>Goldegger Straße 6<br>5620 Schwarzach')
+  .openPopup();
+
+
 
   map.setView(marker.getLatLng());
 });
