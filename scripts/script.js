@@ -1,59 +1,62 @@
 document.addEventListener("DOMContentLoaded", function () {
-  initMap();
+  if (document.getElementById('map')) {
+      initMap();
+  }
   initSmoothScroll();
-  initSlideshow();
-  initKeyboardNavigation();
-  initSwipeNavigation();
+  if (document.getElementById('slideshow')) {
+      initSlideshow();
+      initKeyboardNavigation();
+      initSwipeNavigation();
+  }
+  initHamburgerMenu();
 });
 
 function initMap() {
   var map = L.map('map').setView([47.3185068, 13.1383278], 17);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
 
-  // Custom icon setup
   var customIcon = L.icon({
-    iconUrl: './images/marker-icon.png',
-    shadowUrl: './images/marker-shadow.png',
-    iconSize: [25, 41],
-    shadowSize: [41, 41],
-    iconAnchor: [12, 41],
-    shadowAnchor: [12, 41],
-    popupAnchor: [-3, -76]
+      iconUrl: './images/marker-icon.png',
+      shadowUrl: './images/marker-shadow.png',
+      iconSize: [25, 41],
+      shadowSize: [41, 41],
+      iconAnchor: [12, 41],
+      shadowAnchor: [12, 41],
+      popupAnchor: [-3, -76]
   });
 
   var marker = L.marker([47.3185068, 13.1383278], {icon: customIcon}).addTo(map)
-    .bindPopup('<img src="./logos/Gerardo.jpg" alt="GERARDO Logo" width="200"><br><strong>Pub-Bar Gerardo</strong><br>Goldegger Straße 6<br>5620 Schwarzach')
-    .openPopup();
+      .bindPopup('<img src="./logos/Gerardo.jpg" alt="GERARDO Logo" width="200"><br><strong>Pub-Bar Gerardo</strong><br>Goldegger Straße 6<br>5620 Schwarzach')
+      .openPopup();
 
   map.setView(marker.getLatLng());
 }
 
-
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
+      anchor.addEventListener('click', function (e) {
+          e.preventDefault();
 
-      const targetId = this.getAttribute('href').substring(1);
-      const targetElement = document.querySelector('#' + targetId);
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.querySelector('#' + targetId);
 
-      if (targetId === 'images') {
-        openSlideshow();
-      } else if (targetId !== 'impressum.html') {
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth'
-          });
-        } else {
-          console.error("No element found with the id:", targetId);
-        }
-      } else {
-        window.location.href = './pages/impressum.html';
-      }
-    });
+          if (targetId === 'images') {
+              openSlideshow();
+          } else if (targetId !== 'impressum.html') {
+              if (targetElement) {
+                  targetElement.scrollIntoView({
+                      behavior: 'smooth'
+                  });
+              } else {
+                  console.error("No element found with the id:", targetId);
+              }
+          } else {
+              window.location.href = './pages/impressum.html';
+          }
+      });
   });
 }
 
@@ -68,8 +71,8 @@ const images = [
 
 function initSlideshow() {
   document.querySelector('a[href="#images"]').addEventListener('click', function (e) {
-    e.preventDefault();
-    openSlideshow();
+      e.preventDefault();
+      openSlideshow();
   });
 }
 
@@ -89,28 +92,28 @@ function closeSlideshow() {
 function changeSlide(n) {
   currentImageIndex += n;
   if (currentImageIndex > images.length - 1) {
-    currentImageIndex = 0;
+      currentImageIndex = 0;
   } else if (currentImageIndex < 0) {
-    currentImageIndex = images.length - 1;
+      currentImageIndex = images.length - 1;
   }
   document.getElementById('slideshowImg').src = images[currentImageIndex];
 }
 
 function initKeyboardNavigation() {
   document.addEventListener('keydown', function (event) {
-    if (document.getElementById('slideshow').style.display === "block") {
-      switch (event.key) {
-        case "Escape":
-          closeSlideshow();
-          break;
-        case "ArrowRight":
-          changeSlide(1);
-          break;
-        case "ArrowLeft":
-          changeSlide(-1);
-          break;
+      if (document.getElementById('slideshow').style.display === "block") {
+          switch (event.key) {
+              case "Escape":
+                  closeSlideshow();
+                  break;
+              case "ArrowRight":
+                  changeSlide(1);
+                  break;
+              case "ArrowLeft":
+                  changeSlide(-1);
+                  break;
+          }
       }
-    }
   });
 }
 
@@ -118,36 +121,41 @@ function initSwipeNavigation() {
   let touchStartX = null;
 
   document.getElementById('slideshow').addEventListener('touchstart', function (e) {
-    touchStartX = e.touches[0].clientX;
+      touchStartX = e.touches[0].clientX;
   });
 
   document.getElementById('slideshow').addEventListener('touchmove', function (e) {
-    e.preventDefault();
+      e.preventDefault();
   });
 
   document.getElementById('slideshow').addEventListener('touchend', function (e) {
-    if (touchStartX === null) {
-      return;
-    }
-
-    let touchEndX = e.changedTouches[0].clientX;
-    let diffX = touchStartX - touchEndX;
-
-    if (Math.abs(diffX) > 50) {
-      if (diffX > 0) {
-        changeSlide(1);
-      } else {
-        changeSlide(-1);
+      if (touchStartX === null) {
+          return;
       }
-    }
 
-    touchStartX = null;
+      let touchEndX = e.changedTouches[0].clientX;
+      let diffX = touchStartX - touchEndX;
+
+      if (Math.abs(diffX) > 50) {
+          if (diffX > 0) {
+              changeSlide(1);
+          } else {
+              changeSlide(-1);
+          }
+      }
+
+      touchStartX = null;
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+function initHamburgerMenu() {
   const hamburgerMenu = document.getElementById('hamburger-menu');
   const mobileNavMenu = document.getElementById('mobile-nav-menu');
+
+  if (!hamburgerMenu || !mobileNavMenu) {
+      return;
+  }
+
   const menuLinks = mobileNavMenu.querySelectorAll('a');
 
   hamburgerMenu.addEventListener('click', function() {
@@ -167,4 +175,4 @@ document.addEventListener('DOMContentLoaded', function() {
           mobileNavMenu.classList.add('open');
       }
   }
-});
+}
