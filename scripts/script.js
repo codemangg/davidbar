@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOMContentLoaded fired.");
 
-    // Check if the current page is NOT impressum.html
     if (window.location.pathname.indexOf("impressum.html") === -1) {
         initMap();
         initSmoothScroll();
@@ -125,7 +124,7 @@ function initHamburgerMenu() {
 
     const hamburgerMenu = document.getElementById('hamburger-menu');
     const mobileNavMenu = document.getElementById('mobile-nav-menu');
-    const hamburgerMenuMobile = document.getElementById('hamburger-menu-mobile');
+    const hamburgerMenuMobile = document.getElementById('hamburger-menu-docked');
 
     if (!mobileNavMenu) return;
 
@@ -170,7 +169,7 @@ function handleMenuSwipeGesture(touchStartXMenu, touchEndXMenu) {
 function toggleMenu() {
     let nav = document.getElementById('mobile-nav-menu');
     let hamburger = document.getElementById('hamburger-menu');
-    let hamburgerMobile = document.getElementById('hamburger-menu-mobile');
+    let hamburgerMobile = document.getElementById('hamburger-menu-docked');
     
     if (!nav) return;
 
