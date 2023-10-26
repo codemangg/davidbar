@@ -1,12 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
-    initMap();
-    initSmoothScroll();
-    initSlideshow();
+    console.log("DOMContentLoaded fired.");
+
+    // Check if the current page is NOT impressum.html
+    if (window.location.pathname.indexOf("impressum.html") === -1) {
+        initMap();
+        initSmoothScroll();
+        initSlideshow();
+    } else {
+        console.log("We're on the impressum.html page. Skipping initMap, initSmoothScroll, and initSlideshow.");
+    }
+
     initHamburgerMenu();
     initMenuSwipe();
 });
 
 function initMap() {
+    console.log("initMap fired.");
+
     if (!document.getElementById('map')) return;
 
     var map = L.map('map').setView([47.3185068, 13.1383278], 17);
@@ -34,6 +44,8 @@ function initMap() {
 }
 
 function initSmoothScroll() {
+    console.log("initSmoothScroll fired.");
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -55,8 +67,10 @@ let currentImageIndex = 0;
 const images = ['bildgalerie/image1.jpg', 'bildgalerie/image2.jpg', 'bildgalerie/image3.jpg', 'bildgalerie/image4.jpg', 'bildgalerie/image5.jpg'];
 
 function initSlideshow() {
+    console.log("initSlideshow fired.");
+
     if (!document.getElementById('slideshow')) return;
-    
+
     document.querySelector('a[href="#images"]').addEventListener('click', openSlideshow);
 
     document.addEventListener('keydown', function (event) {
@@ -107,6 +121,8 @@ function changeSlide(n) {
 }
 
 function initHamburgerMenu() {
+    console.log("initHamburgerMenu fired.");
+
     const hamburgerMenu = document.getElementById('hamburger-menu');
     const mobileNavMenu = document.getElementById('mobile-nav-menu');
     const hamburgerMenuMobile = document.getElementById('hamburger-menu-mobile');
@@ -114,15 +130,16 @@ function initHamburgerMenu() {
     if (!mobileNavMenu) return;
 
     const toggle = () => toggleMenu();
-    
+
     if (hamburgerMenu) hamburgerMenu.addEventListener('click', toggle);
     if (hamburgerMenuMobile) hamburgerMenuMobile.addEventListener('click', toggle);
-    
+
     mobileNavMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', toggle));
 }
 
-
 function initMenuSwipe() {
+    console.log("initMenuSwipe fired.");
+
     let touchStartXMenu = null;
     let touchEndXMenu = null;
 
@@ -150,21 +167,24 @@ function handleMenuSwipeGesture(touchStartXMenu, touchEndXMenu) {
     }
 }
 
-
 function toggleMenu() {
-    const mobileNavMenu = document.getElementById('mobile-nav-menu');
-    const hamburgerMenu = document.getElementById('hamburger-menu');
-    let slideshow = document.getElementById('slideshow');
+    let nav = document.getElementById('mobile-nav-menu');
+    let hamburger = document.getElementById('hamburger-menu');
+    let hamburgerMobile = document.getElementById('hamburger-menu-mobile');
+    
+    if (!nav) return;
 
-    if (slideshow && slideshow.style.display !== "block") {
-        mobileNavMenu.classList.toggle('open');
+    if (nav.classList.contains('open')) {
+        nav.classList.remove('open');
 
-        if (mobileNavMenu.classList.contains('open')) {
-            if (hamburgerMenu) hamburgerMenu.style.display = 'none';
-        } else {
-            if (hamburgerMenu) hamburgerMenu.style.display = '';
-        }
+        hamburger.style.display = "flex";
+        hamburgerMobile.style.display = "none";
+
+    } else {
+        nav.classList.add('open');
+        
+        hamburger.style.display = "none"; 
+        hamburgerMobile.style.display = "flex";
     }
 }
-
 
