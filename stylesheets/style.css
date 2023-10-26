@@ -44,6 +44,15 @@ header {
     vertical-align: bottom;
 }
 
+#location-info a[href="https://www.google.com/maps/dir/?api=1&destination=47.3185068,13.1383278"] {
+    color: #231f1e;
+}
+
+#location-info a[href="https://www.google.com/maps/dir/?api=1&destination=47.3185068,13.1383278"]:visited {
+    color: #231f1e;
+}
+
+
 header a {
     color: #f9951b;
     text-decoration: none;
