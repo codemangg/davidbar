@@ -1,178 +1,247 @@
 document.addEventListener("DOMContentLoaded", function () {
-  if (document.getElementById('map')) {
-      initMap();
-  }
-  initSmoothScroll();
-  if (document.getElementById('slideshow')) {
-      initSlideshow();
-      initKeyboardNavigation();
-      initSwipeNavigation();
-  }
-  initHamburgerMenu();
+    if (document.getElementById('map')) {
+        initMap();
+    }
+    initSmoothScroll();
+    if (document.getElementById('slideshow')) {
+        initSlideshow();
+        initKeyboardNavigation();
+        initSwipeNavigation();
+    }
+    initHamburgerMenu();
+    initMenuSwipe();
 });
 
+
 function initMap() {
-  var map = L.map('map').setView([47.3185068, 13.1383278], 17);
+    var map = L.map('map').setView([47.3185068, 13.1383278], 17);
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-  var customIcon = L.icon({
-      iconUrl: './images/marker-icon.png',
-      shadowUrl: './images/marker-shadow.png',
-      iconSize: [25, 41],
-      shadowSize: [41, 41],
-      iconAnchor: [12, 41],
-      shadowAnchor: [12, 41],
-      popupAnchor: [-3, -76]
-  });
+    var customIcon = L.icon({
+        iconUrl: './images/marker-icon.png',
+        shadowUrl: './images/marker-shadow.png',
+        iconSize: [25, 41],
+        shadowSize: [41, 41],
+        iconAnchor: [12, 41],
+        shadowAnchor: [12, 41],
+        popupAnchor: [0, -20]
+    });
 
-  var marker = L.marker([47.3185068, 13.1383278], {icon: customIcon}).addTo(map)
-      .bindPopup('<img src="./logos/Gerardo.jpg" alt="GERARDO Logo" width="200"><br><strong>Pub-Bar Gerardo</strong><br>Goldegger Straße 6<br>5620 Schwarzach')
-      .openPopup();
+    var marker = L.marker([47.3185068, 13.1383278], { icon: customIcon }).addTo(map)
+        .bindPopup('<img src="./logos/Gerardo.jpg" alt="GERARDO Logo" width="200"><br><strong>Pub-Bar Gerardo</strong><br>Goldegger Straße 6<br>5620 Schwarzach', {
+            autoPanPadding: [20, 20]
+        })
+        .openPopup();
 
-  map.setView(marker.getLatLng());
+    map.setView(marker.getLatLng());
 }
 
 function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-          e.preventDefault();
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
 
-          const targetId = this.getAttribute('href').substring(1);
-          const targetElement = document.querySelector('#' + targetId);
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.querySelector('#' + targetId);
 
-          if (targetId === 'images') {
-              openSlideshow();
-          } else if (targetId !== 'impressum.html') {
-              if (targetElement) {
-                  targetElement.scrollIntoView({
-                      behavior: 'smooth'
-                  });
-              } else {
-                  console.error("No element found with the id:", targetId);
-              }
-          } else {
-              window.location.href = './pages/impressum.html';
-          }
-      });
-  });
+            if (targetId === 'images') {
+                openSlideshow();
+            } else if (targetId !== 'impressum.html') {
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                } else {
+                    console.error("No element found with the id:", targetId);
+                }
+            } else {
+                window.location.href = './pages/impressum.html';
+            }
+        });
+    });
 }
 
 let currentImageIndex = 0;
 const images = [
-  'bildgalerie/image1.jpg',
-  'bildgalerie/image2.jpg',
-  'bildgalerie/image3.jpg',
-  'bildgalerie/image4.jpg',
-  'bildgalerie/image5.jpg'
+    'bildgalerie/image1.jpg',
+    'bildgalerie/image2.jpg',
+    'bildgalerie/image3.jpg',
+    'bildgalerie/image4.jpg',
+    'bildgalerie/image5.jpg'
 ];
 
 function initSlideshow() {
-  document.querySelector('a[href="#images"]').addEventListener('click', function (e) {
-      e.preventDefault();
-      openSlideshow();
-  });
+    document.querySelector('a[href="#images"]').addEventListener('click', function (e) {
+        e.preventDefault();
+        openSlideshow();
+    });
 }
 
 function openSlideshow() {
-  const slideshow = document.getElementById('slideshow');
-  const slideshowImg = document.getElementById('slideshowImg');
+    const slideshow = document.getElementById('slideshow');
+    const slideshowImg = document.getElementById('slideshowImg');
 
-  currentImageIndex = 0;
-  slideshowImg.src = images[currentImageIndex];
-  slideshow.style.display = "block";
+    currentImageIndex = 0;
+    slideshowImg.src = images[currentImageIndex];
+    slideshow.style.display = "block";
 }
 
 function closeSlideshow() {
-  document.getElementById('slideshow').style.display = "none";
+    document.getElementById('slideshow').style.display = "none";
 }
 
 function changeSlide(n) {
-  currentImageIndex += n;
-  if (currentImageIndex > images.length - 1) {
-      currentImageIndex = 0;
-  } else if (currentImageIndex < 0) {
-      currentImageIndex = images.length - 1;
-  }
-  document.getElementById('slideshowImg').src = images[currentImageIndex];
+    currentImageIndex += n;
+    if (currentImageIndex > images.length - 1) {
+        currentImageIndex = 0;
+    } else if (currentImageIndex < 0) {
+        currentImageIndex = images.length - 1;
+    }
+    document.getElementById('slideshowImg').src = images[currentImageIndex];
 }
 
 function initKeyboardNavigation() {
-  document.addEventListener('keydown', function (event) {
-      if (document.getElementById('slideshow').style.display === "block") {
-          switch (event.key) {
-              case "Escape":
-                  closeSlideshow();
-                  break;
-              case "ArrowRight":
-                  changeSlide(1);
-                  break;
-              case "ArrowLeft":
-                  changeSlide(-1);
-                  break;
-          }
-      }
-  });
+    document.addEventListener('keydown', function (event) {
+        if (document.getElementById('slideshow').style.display === "block") {
+            switch (event.key) {
+                case "Escape":
+                    closeSlideshow();
+                    break;
+                case "ArrowRight":
+                    changeSlide(1);
+                    break;
+                case "ArrowLeft":
+                    changeSlide(-1);
+                    break;
+            }
+        }
+    });
 }
 
 function initSwipeNavigation() {
-  let touchStartX = null;
+    let touchStartX = null;
 
-  document.getElementById('slideshow').addEventListener('touchstart', function (e) {
-      touchStartX = e.touches[0].clientX;
-  });
+    document.getElementById('slideshow').addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+    });
 
-  document.getElementById('slideshow').addEventListener('touchmove', function (e) {
-      e.preventDefault();
-  });
+    document.getElementById('slideshow').addEventListener('touchmove', function (e) {
+        e.preventDefault();
+    });
 
-  document.getElementById('slideshow').addEventListener('touchend', function (e) {
-      if (touchStartX === null) {
-          return;
-      }
+    document.getElementById('slideshow').addEventListener('touchend', function (e) {
+        if (touchStartX === null) {
+            return;
+        }
 
-      let touchEndX = e.changedTouches[0].clientX;
-      let diffX = touchStartX - touchEndX;
+        let touchEndX = e.changedTouches[0].clientX;
+        let diffX = touchStartX - touchEndX;
 
-      if (Math.abs(diffX) > 50) {
-          if (diffX > 0) {
-              changeSlide(1);
-          } else {
-              changeSlide(-1);
-          }
-      }
+        if (Math.abs(diffX) > 50) {
+            if (diffX > 0) {
+                changeSlide(1);
+            } else {
+                changeSlide(-1);
+            }
+        }
 
-      touchStartX = null;
-  });
+        touchStartX = null;
+    });
 }
 
 function initHamburgerMenu() {
-  const hamburgerMenu = document.getElementById('hamburger-menu');
-  const mobileNavMenu = document.getElementById('mobile-nav-menu');
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const mobileNavMenu = document.getElementById('mobile-nav-menu');
+    const hamburgerMenuMobile = document.getElementById('hamburger-menu-mobile');
 
-  if (!hamburgerMenu || !mobileNavMenu) {
-      return;
-  }
+    if (!hamburgerMenu || !mobileNavMenu) {
+        return;
+    }
 
-  const menuLinks = mobileNavMenu.querySelectorAll('a');
+    const menuLinks = mobileNavMenu.querySelectorAll('a');
 
-  hamburgerMenu.addEventListener('click', function() {
-      toggleMenu();
-  });
+    hamburgerMenu.addEventListener('click', function () {
+        toggleMenu();
+    });
 
-  menuLinks.forEach(link => {
-      link.addEventListener('click', function() {
-          toggleMenu();
-      });
-  });
+    if (hamburgerMenuMobile) {
+        hamburgerMenuMobile.addEventListener('click', function () {
+            toggleMenu();
+        });
+    }
 
-  function toggleMenu() {
-      if (mobileNavMenu.classList.contains('open')) {
-          mobileNavMenu.classList.remove('open');
-      } else {
-          mobileNavMenu.classList.add('open');
-      }
-  }
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function () {
+            toggleMenu();
+        });
+    });
+
+    function toggleMenu() {
+        if (mobileNavMenu.classList.contains('open')) {
+            mobileNavMenu.classList.remove('open');
+        } else {
+            mobileNavMenu.classList.add('open');
+        }
+    }
+}
+
+let touchStartXMenu = null;
+let touchEndXMenu = null;
+
+function initMenuSwipe() {
+    document.addEventListener('touchstart', function (e) {
+        touchStartXMenu = e.touches[0].clientX;
+    }, false);
+
+    document.addEventListener('touchend', function (e) {
+        touchEndXMenu = e.changedTouches[0].clientX;
+        handleMenuSwipeGesture();
+    }, false);
+}
+
+function handleMenuSwipeGesture() {
+    const slideshow = document.getElementById('slideshow');
+    
+    if (slideshow && slideshow.style.display === "block") {
+        return;
+    }
+
+    if (touchStartXMenu === null || touchEndXMenu === null) {
+        return;
+    }
+
+    let diffX = touchStartXMenu - touchEndXMenu;
+
+    if (Math.abs(diffX) > 50) {
+        if (diffX > 0) {
+            if (document.getElementById('mobile-nav-menu').classList.contains('open')) {
+                toggleMenu();
+            }
+        } else {
+            if (!document.getElementById('mobile-nav-menu').classList.contains('open')) {
+                toggleMenu();
+            }
+        }
+    }
+
+    touchStartXMenu = null;
+    touchEndXMenu = null;
+}
+
+function toggleMenu() {
+    const mobileNavMenu = document.getElementById('mobile-nav-menu');
+    const slideshow = document.getElementById('slideshow');
+
+    if (slideshow && slideshow.style.display === "block") {
+        return;
+    }
+
+    if (mobileNavMenu.classList.contains('open')) {
+        mobileNavMenu.classList.remove('open');
+    } else {
+        mobileNavMenu.classList.add('open');
+    }
 }
