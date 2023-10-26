@@ -188,16 +188,17 @@ function initHamburgerMenu() {
     }
 }
 
-let touchStartXMenu = null;
-let touchEndXMenu = null;
+let touchStartYMenu = null;
 
 function initMenuSwipe() {
     document.addEventListener('touchstart', function (e) {
         touchStartXMenu = e.touches[0].clientX;
+        touchStartYMenu = e.touches[0].clientY;
     }, false);
 
     document.addEventListener('touchend', function (e) {
         touchEndXMenu = e.changedTouches[0].clientX;
+        touchEndYMenu = e.changedTouches[0].clientY;
         handleMenuSwipeGesture();
     }, false);
 }
@@ -214,8 +215,9 @@ function handleMenuSwipeGesture() {
     }
 
     let diffX = touchStartXMenu - touchEndXMenu;
+    let diffY = touchStartYMenu - touchEndYMenu;
 
-    if (Math.abs(diffX) > 50) {
+    if (Math.abs(diffX) > 3 * Math.abs(diffY) && Math.abs(diffX) > 100) {
         if (diffX > 0) {
             if (document.getElementById('mobile-nav-menu').classList.contains('open')) {
                 toggleMenu();
@@ -229,7 +231,10 @@ function handleMenuSwipeGesture() {
 
     touchStartXMenu = null;
     touchEndXMenu = null;
+    touchStartYMenu = null;
+    touchEndYMenu = null;
 }
+
 
 function toggleMenu() {
     const mobileNavMenu = document.getElementById('mobile-nav-menu');
