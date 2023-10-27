@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOMContentLoaded fired.");
 
     if (window.location.pathname.indexOf("impressum.html") === -1) {
         initMap();
@@ -14,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function initMap() {
-    console.log("initMap fired.");
 
     if (!document.getElementById('map')) return;
 
@@ -43,7 +41,6 @@ function initMap() {
 }
 
 function initSmoothScroll() {
-    console.log("initSmoothScroll fired.");
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -66,7 +63,6 @@ let currentImageIndex = 0;
 const images = ['bildgalerie/image1.jpg', 'bildgalerie/image2.jpg', 'bildgalerie/image3.jpg', 'bildgalerie/image4.jpg', 'bildgalerie/image5.jpg'];
 
 function initSlideshow() {
-    console.log("initSlideshow fired.");
 
     if (!document.getElementById('slideshow')) return;
 
@@ -120,7 +116,6 @@ function changeSlide(n) {
 }
 
 function initHamburgerMenu() {
-    console.log("initHamburgerMenu fired.");
 
     const hamburgerMenu = document.getElementById('hamburger-menu');
     const mobileNavMenu = document.getElementById('mobile-nav-menu');
@@ -137,7 +132,6 @@ function initHamburgerMenu() {
 }
 
 function initMenuSwipe() {
-    console.log("initMenuSwipe fired.");
 
     let touchStartXMenu = null;
     let touchEndXMenu = null;
@@ -168,22 +162,12 @@ function handleMenuSwipeGesture(touchStartXMenu, touchEndXMenu) {
 
 function toggleMenu() {
     let nav = document.getElementById('mobile-nav-menu');
-    let hamburger = document.getElementById('hamburger-menu');
-    let hamburgerMobile = document.getElementById('hamburger-menu-docked');
-    
+
     if (!nav) return;
 
     if (nav.classList.contains('open')) {
         nav.classList.remove('open');
-
-        hamburger.style.display = "flex";
-        hamburgerMobile.style.display = "none";
-
     } else {
         nav.classList.add('open');
-        
-        hamburger.style.display = "none"; 
-        hamburgerMobile.style.display = "flex";
     }
 }
-
