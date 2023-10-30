@@ -243,6 +243,21 @@ function addClickListener(element, fn) {
 }
 
 /**
+ * Get the swipe threshold based on the state of the drawer.
+ * @returns {number} - Returns the appropriate swipe threshold.
+ */
+function getSwipeThreshold() {
+    let nav = getElement('mobile-nav-menu');
+    
+    // If the side menu is open, reduce the threshold.
+    if (nav && nav.classList.contains('open')) {
+        return baseSwipeThreshold * 0.5;
+    }
+    
+    return baseSwipeThreshold;
+}
+
+/**
  * Initialize touch swipe functionality for the navigation menu.
  */
 function initMenuSwipe() {
@@ -281,15 +296,19 @@ function getSwipeAngle(diffX, diffY) {
  * @param {number} touchEndXMenu - The ending X-coordinate of the swipe.
  * @param {HTMLElement} sourceElement - The source element where the touch started.
  */
+
+const baseSwipeThreshold = 40; // Base minimum horizontal distance to consider as a swipe
+
+
 function handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu, touchEndYMenu, sourceElement) {
-    const swipeThreshold = 40;  // minimum horizontal distance to consider as a swipe
-    const verticalThreshold = 30; // Allow 30px vertical movement without considering it a swipe
+    const verticalThreshold = 30;  // Allow 30px vertical movement without considering it a swipe
+    const swipeThreshold = getSwipeThreshold(); // Use the dynamic threshold
 
     if (sourceElement.closest("#map")) {
         return;
     }
 
-    let slideshow = document.getElementById('slideshow');
+    let slideshow = getElement('slideshow');
     if (!touchStartXMenu || !touchEndXMenu || (slideshow && slideshow.style.display === "block")) return;
 
     let diffX = touchStartXMenu - touchEndXMenu;
@@ -298,9 +317,9 @@ function handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu,
     let angle = getSwipeAngle(diffX, diffY);
 
     if (Math.abs(diffX) > swipeThreshold && angle < 30 && Math.abs(diffY) < verticalThreshold) {
-        if (diffX > 0 && document.getElementById('mobile-nav-menu').classList.contains('open')) {
+        if (diffX > 0 && getElement('mobile-nav-menu').classList.contains('open')) {
             toggleMenu(); // left swipe
-        } else if (diffX < 0 && !document.getElementById('mobile-nav-menu').classList.contains('open')) {
+        } else if (diffX < 0 && !getElement('mobile-nav-menu').classList.contains('open')) {
             toggleMenu(); // right swipe
         }
     }
