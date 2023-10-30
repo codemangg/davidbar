@@ -297,7 +297,7 @@ function getSwipeAngle(diffX, diffY) {
  * @param {HTMLElement} sourceElement - The source element where the touch started.
  */
 
-const baseSwipeThreshold = 40; // Base minimum horizontal distance to consider as a swipe
+const baseSwipeThreshold = 20; // Base minimum horizontal distance to consider as a swipe
 
 
 function handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu, touchEndYMenu, sourceElement) {
