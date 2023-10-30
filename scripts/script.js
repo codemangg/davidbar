@@ -1,20 +1,38 @@
-// Run the code after the DOM has fully loaded.
 document.addEventListener("DOMContentLoaded", function () {
-
-    // Check if we're on the "impressum.html" page.
-    if (window.location.pathname.indexOf("impressum.html") === -1) {
-        // Initialize map, smooth scrolling, and slideshow if NOT on "impressum.html".
-        initMap();
-        initSmoothScroll();
-        initSlideshow();
+    // Check if the code should initialize features based on the page
+    if (!isOnPage("impressum.html")) {
+        initializePageFeatures();
     } else {
-        console.log("We're on the impressum.html page. Skipping initMap, initSmoothScroll, and initSlideshow.");
+        console.log("We're on the impressum.html page. Skipping certain initializations.");
     }
+    initMenuFeatures();
+});
 
-    // Initialize the hamburger menu and menu swipe functionalities.
+/**
+ * Check if we're on the provided page.
+ * @param {string} pageName - Name of the page to check against.
+ * @returns {boolean} - Returns true if on the provided page, false otherwise.
+ */
+function isOnPage(pageName) {
+    return window.location.pathname.indexOf(pageName) !== -1;
+}
+
+/**
+ * Initialize the primary features of the page if not on "impressum.html".
+ */
+function initializePageFeatures() {
+    initMap();
+    initSmoothScroll();
+    initSlideshow();
+}
+
+/**
+ * Initialize the menu-related features.
+ */
+function initMenuFeatures() {
     initHamburgerMenu();
     initMenuSwipe();
-});
+}
 
 /**
  * Initialize the map on the page using Leaflet.
@@ -23,8 +41,29 @@ function initMap() {
     // Check if the map element exists on the page.
     if (!document.getElementById('map')) return;
 
+    var defaultView = {
+        center: [47.3185068, 13.1383278],
+        zoom: 17
+    };
+    
+    L.Control.Home = L.Control.extend({
+        options: {
+            position: 'topleft' // You can adjust this as needed
+        },
+    
+        onAdd: function (map) {
+            var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-home');
+            container.innerHTML = '<a title="Home" href="#home">🏠</a>';
+            container.onclick = function() {
+                map.setView(defaultView.center, defaultView.zoom);
+            };
+            return container;
+        }
+    });
+
     // Set up the map with a default view.
-    var map = L.map('map').setView([47.3185068, 13.1383278], 17);
+    var map = L.map('map').setView(defaultView.center, defaultView.zoom);
+    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -48,6 +87,9 @@ function initMap() {
         .openPopup();
 
     map.setView(marker.getLatLng());
+
+    // Add the home button control to the map
+    new L.Control.Home().addTo(map);
 }
 
 /**
@@ -151,21 +193,37 @@ function changeSlide(n) {
  * Initialize the hamburger menu toggle functionality.
  */
 function initHamburgerMenu() {
-    const hamburgerMenu = document.getElementById('hamburger-menu');
-    const mobileNavMenu = document.getElementById('mobile-nav-menu');
-    const hamburgerMenuMobile = document.getElementById('hamburger-menu-docked');
-
+    const hamburgerMenu = getElement('hamburger-menu');
+    const mobileNavMenu = getElement('mobile-nav-menu');
+    const hamburgerMenuMobile = getElement('hamburger-menu-docked');
+    
     // Check if mobile navigation exists.
     if (!mobileNavMenu) return;
 
-    // Toggle the mobile menu when clicked.
-    const toggle = () => toggleMenu();
-
-    if (hamburgerMenu) hamburgerMenu.addEventListener('click', toggle);
-    if (hamburgerMenuMobile) hamburgerMenuMobile.addEventListener('click', toggle);
+    const toggleFn = () => toggleMenu();
+    addClickListener(hamburgerMenu, toggleFn);
+    addClickListener(hamburgerMenuMobile, toggleFn);
 
     // Close the mobile menu when a link inside it is clicked.
-    mobileNavMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', toggle));
+    mobileNavMenu.querySelectorAll('a').forEach(link => addClickListener(link, toggleFn));
+}
+
+/**
+ * Get an element by its ID.
+ * @param {string} id - The ID of the element to retrieve.
+ * @returns {HTMLElement|null} - Returns the element with the given ID or null if it doesn't exist.
+ */
+function getElement(id) {
+    return document.getElementById(id);
+}
+
+/**
+ * Add a click event listener to an element.
+ * @param {HTMLElement|null} element - The element to add the listener to.
+ * @param {Function} fn - The function to be called on click.
+ */
+function addClickListener(element, fn) {
+    if (element) element.addEventListener('click', fn);
 }
 
 /**
@@ -174,14 +232,16 @@ function initHamburgerMenu() {
 function initMenuSwipe() {
     let touchStartXMenu = null;
     let touchEndXMenu = null;
+    let touchSource = null; // add this to keep track of the source element
 
     document.addEventListener('touchstart', function (e) {
         touchStartXMenu = e.touches[0].clientX;
+        touchSource = e.target; // store the source of the touch
     });
 
     document.addEventListener('touchend', function (e) {
         touchEndXMenu = e.changedTouches[0].clientX;
-        handleMenuSwipeGesture(touchStartXMenu, touchEndXMenu);
+        handleMenuSwipeGesture(touchStartXMenu, touchEndXMenu, touchSource);
     });
 }
 
@@ -189,8 +249,14 @@ function initMenuSwipe() {
  * Handle the swipe gesture for the mobile navigation menu.
  * @param {number} touchStartXMenu - The starting X-coordinate of the swipe.
  * @param {number} touchEndXMenu - The ending X-coordinate of the swipe.
+ * @param {HTMLElement} sourceElement - The source element where the touch started.
  */
-function handleMenuSwipeGesture(touchStartXMenu, touchEndXMenu) {
+function handleMenuSwipeGesture(touchStartXMenu, touchEndXMenu, sourceElement) {
+    let map = document.getElementById('map');
+    if (sourceElement.closest("#map")) {
+        // If the source of the touch is the map or a child of the map, ignore the swipe gesture
+        return;
+    }
     let slideshow = document.getElementById('slideshow');
     if (!touchStartXMenu || !touchEndXMenu || (slideshow && slideshow.style.display === "block")) return;
 
