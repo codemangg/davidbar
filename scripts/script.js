@@ -282,7 +282,7 @@ function getSwipeAngle(diffX, diffY) {
  * @param {HTMLElement} sourceElement - The source element where the touch started.
  */
 function handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu, touchEndYMenu, sourceElement) {
-    const swipeThreshold = 50;  // minimum horizontal distance to consider as a swipe
+    const swipeThreshold = 40;  // minimum horizontal distance to consider as a swipe
     const verticalThreshold = 30; // Allow 30px vertical movement without considering it a swipe
 
     if (sourceElement.closest("#map")) {
