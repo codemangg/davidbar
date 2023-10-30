@@ -161,17 +161,42 @@ async function initSlideshow() {
     fetchedImages.forEach(img => images.push(img));
 
     // Check if the slideshow element exists on the page.
-    if (!document.getElementById('slideshow')) return;
+    const slideshow = document.getElementById('slideshow');
+    if (!slideshow) return;
 
     document.querySelector('a[href="#images"]').addEventListener('click', openSlideshow);
 
     // Handle keyboard inputs for slideshow navigation.
     document.addEventListener('keydown', function (event) {
-        if (document.getElementById('slideshow').style.display === "block") {
+        if (slideshow.style.display === "block") {
             switch (event.key) {
                 case "Escape": closeSlideshow(); break;
                 case "ArrowRight": changeSlide(1); break;
                 case "ArrowLeft": changeSlide(-1); break;
+            }
+        }
+    });
+
+    let touchStartXSlideshow = null;
+    let touchEndXSlideshow = null;
+
+    // Swipe event listeners for the slideshow
+    slideshow.addEventListener('touchstart', function (e) {
+        touchStartXSlideshow = e.touches[0].clientX;
+    });
+
+    slideshow.addEventListener('touchend', function (e) {
+        touchEndXSlideshow = e.changedTouches[0].clientX;
+
+        if (!touchStartXSlideshow || !touchEndXSlideshow) return;
+
+        let diffX = touchStartXSlideshow - touchEndXSlideshow;
+
+        if (Math.abs(diffX) > baseSwipeThreshold) {
+            if (diffX > 0) {
+                changeSlide(1);
+            } else {
+                changeSlide(-1);
             }
         }
     });
@@ -297,7 +322,7 @@ function getSwipeAngle(diffX, diffY) {
  * @param {HTMLElement} sourceElement - The source element where the touch started.
  */
 
-const baseSwipeThreshold = 20; // Base minimum horizontal distance to consider as a swipe
+const baseSwipeThreshold = 10; // Base minimum horizontal distance to consider as a swipe
 
 
 function handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu, touchEndYMenu, sourceElement) {
