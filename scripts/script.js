@@ -194,7 +194,7 @@ async function initSlideshow() {
 
         if (Math.abs(diffX) > baseSwipeThreshold) {
             if (diffX > 0) {
-                changeSlide(1);
+                changeSlide(1); 
             } else {
                 changeSlide(-1);
             }
