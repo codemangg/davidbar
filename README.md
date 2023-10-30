@@ -33,10 +33,13 @@ A website dedicated to showcasing the 'Gerardo' venue located in Schwarzach im P
 
     ├── pages
     │   └── impressum.html   # Impressum page with legal details
+    ├── index.html           # Main page
     ├── stylesheets
     │   └── style.css        # Main styling file
+    │   └── leaflet.js       # Leaflet styling file
     ├── scripts
     │   └── script.js        # JavaScript functions and interactivity
+    │   └── leaflet.js       # Leaflet functions and interactivity
     ├── logos                # Logos directory
     ├── images               # General images used in the website
     ├── favicon              # Favicons and related images
