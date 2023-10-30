@@ -50,7 +50,7 @@ function initMap() {
         options: {
             position: 'topleft'
         },
-    
+
         onAdd: function (map) {
             let container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-home');
             container.innerHTML = '<a title="Home" href="#home">🏠</a>';
@@ -58,12 +58,12 @@ function initMap() {
                 map.setView(defaultView.center, defaultView.zoom);
                 setTimeout(() => {
                     marker.openPopup();  // Open the marker's popup after a short delay of 100ms
-                }, 100); 
+                }, 100);
             };
             return container;
         }
     });
-    
+
 
 
     // Set up the map with a default view.
@@ -265,6 +265,15 @@ function initMenuSwipe() {
     });
 }
 
+/**
+ * Calculate the angle between the touch start and touch end coordinates.
+ * @param {number} diffX - The difference in X-coordinates.
+ * @param {number} diffY - The difference in Y-coordinates.
+ * @return {number} - The angle in degrees.
+ */
+function getSwipeAngle(diffX, diffY) {
+    return Math.atan2(Math.abs(diffY), Math.abs(diffX)) * 180 / Math.PI;
+}
 
 /**
  * Handle the swipe gesture for the mobile navigation menu.
@@ -273,7 +282,8 @@ function initMenuSwipe() {
  * @param {HTMLElement} sourceElement - The source element where the touch started.
  */
 function handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu, touchEndYMenu, sourceElement) {
-    const swipeThreshold = 50; // minimum horizontal distance to consider as a swipe
+    const swipeThreshold = 50;  // minimum horizontal distance to consider as a swipe
+    const verticalThreshold = 30; // Allow 30px vertical movement without considering it a swipe
 
     if (sourceElement.closest("#map")) {
         return;
@@ -285,8 +295,9 @@ function handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu,
     let diffX = touchStartXMenu - touchEndXMenu;
     let diffY = touchStartYMenu - touchEndYMenu;
 
-    if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
-        // The horizontal movement is greater than the threshold and is also greater than the vertical movement
+    let angle = getSwipeAngle(diffX, diffY);
+
+    if (Math.abs(diffX) > swipeThreshold && angle < 30 && Math.abs(diffY) < verticalThreshold) {
         if (diffX > 0 && document.getElementById('mobile-nav-menu').classList.contains('open')) {
             toggleMenu(); // left swipe
         } else if (diffX < 0 && !document.getElementById('mobile-nav-menu').classList.contains('open')) {
