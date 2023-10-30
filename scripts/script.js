@@ -50,17 +50,20 @@ function initMap() {
         options: {
             position: 'topleft'
         },
-
+    
         onAdd: function (map) {
             let container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-home');
             container.innerHTML = '<a title="Home" href="#home">🏠</a>';
             container.onclick = function () {
                 map.setView(defaultView.center, defaultView.zoom);
-                marker.openPopup();  // Open the marker's popup
+                setTimeout(() => {
+                    marker.openPopup();  // Open the marker's popup after a short delay of 100ms
+                }, 100); 
             };
             return container;
         }
     });
+    
 
 
     // Set up the map with a default view.
@@ -118,14 +121,45 @@ function initSmoothScroll() {
     });
 }
 
-// Image gallery data and current index.
+
+
 let currentImageIndex = 0;
-const images = ['bildgalerie/image1.jpg', 'bildgalerie/image2.jpg', 'bildgalerie/image3.jpg', 'bildgalerie/image4.jpg', 'bildgalerie/image5.jpg'];
+const images = []; // Let's start with an empty array, it will be filled dynamically
+
+/**
+ * Fetch images from GitHub repo.
+ */
+function fetchImagesFromRepo() {
+    const user = 'codemangg';
+    const repo = 'davidbar';
+    const path = 'bildgalerie';
+
+    return fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`)
+        .then(response => response.json())
+        .then(data => {
+            if (!Array.isArray(data)) {
+                console.error("Unexpected API response:", data);
+                return [];
+            }
+
+            return data
+                .filter(item => item.type === 'file' && ['.jpg', '.jpeg', '.png'].includes(item.name.slice(-4)))
+                .map(item => item.path);
+        })
+        .catch(error => {
+            console.error('Error fetching images:', error);
+            return []; // Return empty array on failure
+        });
+}
 
 /**
  * Initialize the slideshow functionality.
  */
-function initSlideshow() {
+async function initSlideshow() {
+    // Fetch images and populate the 'images' array
+    const fetchedImages = await fetchImagesFromRepo();
+    fetchedImages.forEach(img => images.push(img));
+
     // Check if the slideshow element exists on the page.
     if (!document.getElementById('slideshow')) return;
 
@@ -140,26 +174,6 @@ function initSlideshow() {
                 case "ArrowLeft": changeSlide(-1); break;
             }
         }
-    });
-
-    // Handle touch gestures for the slideshow.
-    let touchStartX = null;
-    const slideshowEl = document.getElementById('slideshow');
-
-    slideshowEl.addEventListener('touchstart', e => touchStartX = e.touches[0].clientX);
-    slideshowEl.addEventListener('touchmove', e => e.preventDefault());
-    slideshowEl.addEventListener('touchend', function (e) {
-        if (!touchStartX) return;
-
-        let touchEndX = e.changedTouches[0].clientX;
-        let diffX = touchStartX - touchEndX;
-
-        if (Math.abs(diffX) > 50) {
-            // Change slide based on the swipe direction.
-            changeSlide(diffX > 0 ? 1 : -1);
-        }
-
-        touchStartX = null;
     });
 }
 
