@@ -41,35 +41,37 @@ function initMap() {
     // Check if the map element exists on the page.
     if (!document.getElementById('map')) return;
 
-    var defaultView = {
+    let defaultView = {
         center: [47.3185068, 13.1383278],
         zoom: 17
     };
-    
+
     L.Control.Home = L.Control.extend({
         options: {
-            position: 'topleft' // You can adjust this as needed
+            position: 'topleft'
         },
-    
+
         onAdd: function (map) {
-            var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-home');
+            let container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-home');
             container.innerHTML = '<a title="Home" href="#home">🏠</a>';
-            container.onclick = function() {
+            container.onclick = function () {
                 map.setView(defaultView.center, defaultView.zoom);
+                marker.openPopup();  // Open the marker's popup
             };
             return container;
         }
     });
 
+
     // Set up the map with a default view.
-    var map = L.map('map').setView(defaultView.center, defaultView.zoom);
-    
+    let map = L.map('map').setView(defaultView.center, defaultView.zoom);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
     // Create a custom marker icon.
-    var customIcon = L.icon({
+    let customIcon = L.icon({
         iconUrl: './images/marker-icon.png',
         shadowUrl: './images/marker-shadow.png',
         iconSize: [25, 41],
@@ -80,7 +82,7 @@ function initMap() {
     });
 
     // Add the custom marker to the map and bind a popup to it.
-    var marker = L.marker([47.3185068, 13.1383278], { icon: customIcon }).addTo(map)
+    let marker = L.marker([47.3185068, 13.1383278], { icon: customIcon }).addTo(map)
         .bindPopup('<img src="./logos/Gerardo.jpg" alt="GERARDO Logo" width="200"><br><strong>Pub-Bar Gerardo</strong><br>Goldegger Straße 6<br>5620 Schwarzach', {
             autoPanPadding: [20, 20]
         })
@@ -196,7 +198,7 @@ function initHamburgerMenu() {
     const hamburgerMenu = getElement('hamburger-menu');
     const mobileNavMenu = getElement('mobile-nav-menu');
     const hamburgerMenuMobile = getElement('hamburger-menu-docked');
-    
+
     // Check if mobile navigation exists.
     if (!mobileNavMenu) return;
 
@@ -231,19 +233,24 @@ function addClickListener(element, fn) {
  */
 function initMenuSwipe() {
     let touchStartXMenu = null;
+    let touchStartYMenu = null; // Track the starting Y-coordinate
     let touchEndXMenu = null;
-    let touchSource = null; // add this to keep track of the source element
+    let touchEndYMenu = null;   // Track the ending Y-coordinate
+    let touchSource = null;
 
     document.addEventListener('touchstart', function (e) {
         touchStartXMenu = e.touches[0].clientX;
-        touchSource = e.target; // store the source of the touch
+        touchStartYMenu = e.touches[0].clientY; // Store the starting Y-coordinate
+        touchSource = e.target;
     });
 
     document.addEventListener('touchend', function (e) {
         touchEndXMenu = e.changedTouches[0].clientX;
-        handleMenuSwipeGesture(touchStartXMenu, touchEndXMenu, touchSource);
+        touchEndYMenu = e.changedTouches[0].clientY; // Store the ending Y-coordinate
+        handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu, touchEndYMenu, touchSource);
     });
 }
+
 
 /**
  * Handle the swipe gesture for the mobile navigation menu.
@@ -251,22 +258,25 @@ function initMenuSwipe() {
  * @param {number} touchEndXMenu - The ending X-coordinate of the swipe.
  * @param {HTMLElement} sourceElement - The source element where the touch started.
  */
-function handleMenuSwipeGesture(touchStartXMenu, touchEndXMenu, sourceElement) {
-    let map = document.getElementById('map');
+function handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu, touchEndYMenu, sourceElement) {
+    const swipeThreshold = 50; // minimum horizontal distance to consider as a swipe
+
     if (sourceElement.closest("#map")) {
-        // If the source of the touch is the map or a child of the map, ignore the swipe gesture
         return;
     }
+
     let slideshow = document.getElementById('slideshow');
     if (!touchStartXMenu || !touchEndXMenu || (slideshow && slideshow.style.display === "block")) return;
 
     let diffX = touchStartXMenu - touchEndXMenu;
-    if (Math.abs(diffX) > 100) {
-        // Toggle the mobile menu based on swipe direction.
+    let diffY = touchStartYMenu - touchEndYMenu;
+
+    if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > Math.abs(diffY)) {
+        // The horizontal movement is greater than the threshold and is also greater than the vertical movement
         if (diffX > 0 && document.getElementById('mobile-nav-menu').classList.contains('open')) {
-            toggleMenu();
+            toggleMenu(); // left swipe
         } else if (diffX < 0 && !document.getElementById('mobile-nav-menu').classList.contains('open')) {
-            toggleMenu();
+            toggleMenu(); // right swipe
         }
     }
 }
