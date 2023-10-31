@@ -124,14 +124,14 @@ function initSmoothScroll() {
 
 
 let currentImageIndex = 0;
-const images = []; // Let's start with an empty array, it will be filled dynamically
+const images = [];
 
 /**
  * Fetch images from GitHub repo.
  */
 function fetchImagesFromRepo() {
     const user = 'codemangg';
-    const repo = 'davidbar';
+    const repo = 'gerardo';
     const path = 'bildgalerie';
 
     return fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`)
@@ -148,7 +148,7 @@ function fetchImagesFromRepo() {
         })
         .catch(error => {
             console.error('Error fetching images:', error);
-            return []; // Return empty array on failure
+            return [];
         });
 }
 
@@ -287,20 +287,20 @@ function getSwipeThreshold() {
  */
 function initMenuSwipe() {
     let touchStartXMenu = null;
-    let touchStartYMenu = null; // Track the starting Y-coordinate
+    let touchStartYMenu = null;
     let touchEndXMenu = null;
-    let touchEndYMenu = null;   // Track the ending Y-coordinate
+    let touchEndYMenu = null; 
     let touchSource = null;
 
     document.addEventListener('touchstart', function (e) {
         touchStartXMenu = e.touches[0].clientX;
-        touchStartYMenu = e.touches[0].clientY; // Store the starting Y-coordinate
+        touchStartYMenu = e.touches[0].clientY;
         touchSource = e.target;
     });
 
     document.addEventListener('touchend', function (e) {
         touchEndXMenu = e.changedTouches[0].clientX;
-        touchEndYMenu = e.changedTouches[0].clientY; // Store the ending Y-coordinate
+        touchEndYMenu = e.changedTouches[0].clientY;
         handleMenuSwipeGesture(touchStartXMenu, touchStartYMenu, touchEndXMenu, touchEndYMenu, touchSource);
     });
 }
