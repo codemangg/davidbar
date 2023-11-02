@@ -231,6 +231,10 @@ function changeSlide(n) {
 }
 
 /**
+ * Exclusively mobile functionality
+ */
+
+/**
  * Initialize the hamburger menu toggle functionality.
  */
 function initHamburgerMenu() {
