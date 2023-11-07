@@ -130,18 +130,34 @@ header nav a:hover {
 }
 
 #impressum h1 {
-    font-size: 28px;
     margin-bottom: 20px;
 }
 
-#impressum p {
+#impressum p,
+#impressum ul {
+    text-align: left;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
     margin-bottom: 15px;
-    line-height: 1.6;
 }
 
 #impressum a {
     color: #f9951b;
+    text-decoration: none;
+}
+
+#impressum a:hover {
     text-decoration: underline;
+}
+
+#impressum ul {
+    list-style: none;
+    padding: 0;
+}
+
+#impressum li:not(:last-child) {
+    margin-bottom: 10px;
 }
 
 #slideshow {
